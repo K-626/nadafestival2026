@@ -6,114 +6,200 @@
     <meta charset="UTF-8">
     <style>
         body {
-            font-family: "Segoe UI", sans-serif;
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
             line-height: 1.6;
-            background-color: #f9f9f9;
-            color: #333;
+            background-color: #f0f4f8;
+            color: #1e293b;
             padding: 0;
             margin: 0;
         }
 
         h1 {
             text-align: center;
-            font-size: 2em;
-            margin-bottom: 1em;
-            background-color: hsl(41, 83%, 53%);
-            color: white;
-            padding: 20px 0;
-            width: 100%;
-
+            font-size: 1.8em;
+            margin-bottom: 0;
+            background-color: #0f172a;
+            color: #f8fafc;
+            padding: 24px 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
         }
 
         .container {
-            padding: 20px;
-            max-width: 960px;
+            padding: 30px 20px;
+            max-width: 800px;
             margin: auto;
         }
 
         h2 {
             margin-top: 2em;
-            margin-bottom: 0.5em;
+            margin-bottom: 1em;
+            font-size: 1.5em;
+            border-bottom: 2px solid #cbd5e1;
+            padding-bottom: 8px;
         }
 
         h2.A {
-            color: green;
+            color: #059669;
+            border-bottom-color: #059669;
         }
 
         h2.B {
-            color: blue;
+            color: #2563eb;
+            border-bottom-color: #2563eb;
         }
 
         h2.C {
-            color: red;
+            color: #dc2626;
+            border-bottom-color: #dc2626;
         }
 
         hr.section-divider {
             border: none;
-            height: 2px;
-            background: linear-gradient(to right, #ccc, #eee, #ccc);
-            margin: 2em 0;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            width: 100%;
+            height: 1px;
+            background-color: #cbd5e1;
+            margin: 3em 0;
         }
 
+        /* 第一階層 (行先など) */
         details {
-            margin-bottom: 1em;
-            margin-left: 0;
-            width: 100%;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: box-shadow 0.2s ease;
+        }
+
+        details[open] {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         summary {
             cursor: pointer;
-            font-weight: bold;
-            margin-bottom: 0.5em;
-            padding: 10px;
-            background-color: #eee;
-            border-radius: 5px;
-            display: block;
+            font-weight: 600;
+            padding: 16px 16px 16px 40px;
             position: relative;
-            padding-left: 25px;
             list-style: none;
+            background-color: #ffffff;
+            transition: background-color 0.2s ease;
+            user-select: none;
+            border-left: 4px solid #64748b;
         }
 
         summary::-webkit-details-marker {
             display: none;
         }
 
+        summary:hover {
+            background-color: #f8fafc;
+        }
+
         summary::before {
             content: "";
             position: absolute;
-            left: 8px;
+            left: 16px;
             top: 50%;
-            transform: translateY(-50%);
-            border-left: 7px solid #333;
-            border-top: 7px solid transparent;
-            border-bottom: 7px solid transparent;
-            transition: transform 0.3s ease-in-out;
+            transform: translateY(-50%) rotate(0deg);
+            border-left: 6px solid #64748b;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            transition: transform 0.3s ease;
         }
 
         details[open]>summary::before {
             transform: translateY(-50%) rotate(90deg);
         }
 
-        summary:hover {
-            background-color: #ddd;
+        details>*:not(summary) {
+            margin-left: 20px;
+            margin-right: 20px;
+            margin-bottom: 16px;
         }
 
-        .accordion_contents {
-            padding: 0.5em;
-            border-left: 3px solid #ccc;
-            margin-left: 1em;
-            background-color: #fff;
-            overflow-x: auto;
-            transition: max-height 0.4s ease-in-out;
-            max-height: 0;
+        details[open]>*:not(summary):first-of-type {
+            margin-top: 16px;
         }
 
-        details[open]>.accordion_contents {
-            max-height: 800px;
+        /* 第二階層 (ヒント1など) */
+        details details {
+            margin-top: 12px;
+            margin-bottom: 12px;
+            border-radius: 6px;
+            background-color: #f8fafc;
+            box-shadow: inset 0 0 0 1px #e2e8f0;
+        }
+
+        details details>summary {
+            background-color: transparent;
+            padding: 12px 12px 12px 36px;
+            font-size: 0.95em;
+            border-left: 4px solid #3b82f6;
+            /* Blue */
+        }
+
+        details details>summary:hover {
+            background-color: #f1f5f9;
+        }
+
+        details details>summary::before {
+            left: 14px;
+            border-left-color: #3b82f6;
+        }
+
+        /* 第三階層 */
+        details details details {
+            background-color: #f1f5f9;
+        }
+
+        details details details>summary {
+            border-left: 4px solid #10b981;
+            /* Green */
+        }
+
+        details details details>summary::before {
+            border-left-color: #10b981;
+        }
+
+        /* 第四階層 */
+        details details details details {
+            background-color: #fef3c7;
+            box-shadow: inset 0 0 0 1px #fde68a;
+        }
+
+        details details details details>summary {
+            border-left: 4px solid #f59e0b;
+            /* Orange */
+        }
+
+        details details details details>summary::before {
+            border-left-color: #f59e0b;
+        }
+
+        /* 第五階層以上 (主に答えや警告) */
+        details details details details details {
+            background-color: #fef2f2;
+            box-shadow: inset 0 0 0 1px #fecaca;
+        }
+
+        details details details details details>summary {
+            border-left: 4px solid #ef4444;
+            /* Red */
+            color: #b91c1c;
+        }
+
+        details details details details details>summary::before {
+            border-left-color: #ef4444;
+        }
+
+        p {
+            margin: 0;
+            color: #475569;
+            font-size: 0.95em;
+            line-height: 1.7;
+            padding: 4px 0;
         }
     </style>
 </head>
@@ -123,7 +209,7 @@
     <div class="container">
         <h2>各難易度ごとのヒント</h2>
         <p>行き詰まってしまった場合に一つずつ開けてご使用ください。</p>
-
+        <h2>行先にある手掛かりや謎は<strong>ブースの外</strong>にあります!!</h2>
 
         <h2 class="A">依頼壱</h2>
 
